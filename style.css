@@ -19,53 +19,31 @@ body {
 
 .container {
 	background-color: #1a212c;
-	display: flex;
 	width: 600px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 25px;
-	flex: 1;
 }
 .display {
 	display: flex;
 	background-color: crimson;
-	width: 80%;
 	font-size: 50px;
 	padding: 5px 0;
 	align-items: center;
 	justify-content: flex-end;
 }
 .btnPanel {
-	display: flex;
-	flex: 1;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: 1fr;
 	background-color: #145;
 }
 .numbers {
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-	flex-wrap: wrap;
-	flex: 1;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 2px;
 	background-color: red;
 	color: #000;
 }
 .numbers button {
 	background-color: #3b3b3b;
 	color: #f7f7f7;
-	height: 40px;
 	border-radius: 4px;
-	padding: 0 60px;
 	font-size: 2rem;
-}
-.operator {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	background-color: brown;
-}
-.operator button {
-	background-color: #3b3b3b;
-	color: #f7f7f7;
 }
