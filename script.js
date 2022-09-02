@@ -1,6 +1,7 @@
 // Operator Functions
 function add(a, b) {
-	return a + b;
+	//Number function to make sure to not concat strings.
+	return Number(a) + Number(b);
 }
 
 function subtract(a, b) {
@@ -15,6 +16,12 @@ function divide(a, b) {
 	return a / b;
 }
 
+function sqr(a, b) {
+	return Math.pow(a, b);
+}
+function modulus(a, b) {
+	return a % b;
+}
 function operate(operator, a, b) {
 	return operator(a, b);
 }
@@ -24,8 +31,14 @@ const operatorButtons = document.querySelectorAll(".operator");
 const display = document.querySelector(".display");
 const equalButton = document.querySelector(".equals");
 const clearButton = document.querySelector(".clear");
+const clearEntryButton = document.querySelector(".clearEntry");
+const backspaceButton = document.querySelector(".backspace");
+const sqrtButton = document.querySelector(".sqrt");
+const negateButton = document.querySelector(".negate");
+const fractionButton = document.querySelector(".fraction");
 let storedValue = 0;
-let operator = 0;
+let operator = null;
+//input numbers to display
 function updateDisplay(number) {
 	display.textContent = display.textContent + number;
 }
@@ -54,12 +67,40 @@ operatorButtons.forEach((button) => {
 		display.textContent = "0";
 	});
 });
+
+sqrtButton.onclick = () =>
+	(display.textContent = Math.sqrt(display.textContent));
+negateButton.onclick = () => (display.textContent = display.textContent * -1);
+fractionButton.onclick = () => {
+	console.log(display);
+	display.textContent = fraction(display.textContent);
+};
 //function to operate stored values and put result to display
-equalButton.onclick = () =>
-	(display.textContent = operate(
+equalButton.onclick = () => {
+	display.textContent = operate(
 		this[operator],
 		storedValue,
 		display.textContent
-	));
+	);
+};
 
-clearButton.onclick = () => clearDisplay();
+clearEntryButton.onclick = () => {
+	clearDisplay();
+};
+clearButton.onclick = () => {
+	storedValue = 0;
+	operator = null;
+	clearDisplay();
+};
+
+backspaceButton.onclick = () => {
+	display.textContent = display.textContent.slice(
+		0,
+		display.textContent.length - 1
+	);
+	if (display.textContent === "") display.textContent = 0;
+};
+
+function fraction(a) {
+	return 1 / Number(a);
+}
