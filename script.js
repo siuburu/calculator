@@ -13,17 +13,24 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-	return a / b;
+	if (b === "0") return "Bruh...";
+	else return a / b;
 }
 
 function sqr(a, b) {
 	return Math.pow(a, b);
 }
 function modulus(a, b) {
+	if (b === "0") return "Bruh...";
 	return a % b;
 }
 function operate(operator, a, b) {
 	return operator(a, b);
+}
+
+function fraction(a) {
+	if (a === "0") return "Bruh...";
+	return 1 / Number(a);
 }
 
 const numberButtons = document.querySelectorAll(".number");
@@ -61,7 +68,6 @@ numberButtons.forEach((button) => {
 //function that stores operator selected and current display value
 operatorButtons.forEach((button) => {
 	button.addEventListener("click", () => {
-		if (button.className.split(" ")[1] === "equals") return;
 		operator = button.className.split(" ")[1];
 		storedValue = display.textContent;
 		display.textContent = "0";
@@ -100,7 +106,3 @@ backspaceButton.onclick = () => {
 	);
 	if (display.textContent === "") display.textContent = 0;
 };
-
-function fraction(a) {
-	return 1 / Number(a);
-}
