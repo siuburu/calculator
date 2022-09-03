@@ -47,39 +47,41 @@ let storedValue = 0;
 let operator = null;
 //input numbers to display
 function updateDisplay(number) {
-	display.textContent = display.textContent + number;
+	display.textContent = number;
 }
 // Clear Display function with 0
 function clearDisplay() {
-	display.textContent = "0";
+	updateDisplay("0");
 }
 // Function to update display with numbers
 numberButtons.forEach((button) => {
 	button.addEventListener("click", () => {
-		//
 		if (display.textContent.includes(".") && button.textContent === ".") {
 			return;
-		} else if (display.textContent === "0") {
-			display.textContent = "";
+		} else if (
+			display.textContent === "0" ||
+			display.textContent === storedValue
+		) {
+			updateDisplay("");
 		}
-		updateDisplay(button.textContent);
+		updateDisplay(display.textContent + button.textContent);
 	});
 });
 //function that stores operator selected and current display value
 operatorButtons.forEach((button) => {
 	button.addEventListener("click", () => {
+		if (operator !== null)
+			updateDisplay(operate(this[operator], storedValue, display.textContent));
 		operator = button.className.split(" ")[1];
 		storedValue = display.textContent;
-		display.textContent = "0";
+		//display.textContent = "0";
 	});
 });
 
-sqrtButton.onclick = () =>
-	(display.textContent = Math.sqrt(display.textContent));
-negateButton.onclick = () => (display.textContent = display.textContent * -1);
+sqrtButton.onclick = () => updateDisplay(Math.sqrt(display.textContent));
+negateButton.onclick = () => updateDisplay(display.textContent * -1);
 fractionButton.onclick = () => {
-	console.log(display);
-	display.textContent = fraction(display.textContent);
+	updateDisplay(fraction(display.textContent));
 };
 //function to operate stored values and put result to display
 equalButton.onclick = () => {
@@ -100,9 +102,6 @@ clearButton.onclick = () => {
 };
 
 backspaceButton.onclick = () => {
-	display.textContent = display.textContent.slice(
-		0,
-		display.textContent.length - 1
-	);
-	if (display.textContent === "") display.textContent = 0;
+	updateDisplay(display.textContent.slice(0, display.textContent.length - 1));
+	if (display.textContent === "") updateDisplay(0);
 };
