@@ -33,6 +33,10 @@ function fraction(a) {
 	return 1 / Number(a);
 }
 
+function roundNumber(number) {
+	return +parseFloat(number).toFixed(4);
+}
+
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const display = document.querySelector(".display");
@@ -47,6 +51,9 @@ let storedValue = 0;
 let operator = null;
 //input numbers to display
 function updateDisplay(number) {
+	if (number.toString().length > 9 && number.toString().includes(".")) {
+		number = roundNumber(number);
+	}
 	display.textContent = number;
 }
 // Clear Display function with 0
@@ -85,11 +92,7 @@ fractionButton.onclick = () => {
 };
 //function to operate stored values and put result to display
 equalButton.onclick = () => {
-	display.textContent = operate(
-		this[operator],
-		storedValue,
-		display.textContent
-	);
+	updateDisplay(operate(this[operator], storedValue, display.textContent));
 };
 
 clearEntryButton.onclick = () => {
