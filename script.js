@@ -25,7 +25,8 @@ function modulus(a, b) {
 	return a % b;
 }
 function operate(operator, a, b) {
-	return operator(a, b);
+	if (operator == null) return;
+	else return operator(a, b);
 }
 
 function fraction(a) {
@@ -51,6 +52,7 @@ let storedValue = 0;
 let operator = null;
 //input numbers to display
 function updateDisplay(number) {
+	if (number === undefined) number = 0;
 	if (number.toString().length > 9 && number.toString().includes(".")) {
 		number = roundNumber(number);
 	}
