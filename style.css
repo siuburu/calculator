@@ -1,9 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Dosis:700);
 :root {
-	--dark-background: #1a212c;
-	--operator-background: #2d333f;
+	--dark-background: #202020;
+	--operator-background: #323232;
 	--equal-background: #f38064;
-	--number-background: #363b48;
+	--number-background: #3b3b3b;
+	--dark-overlay: rgba(0, 0, 0, 0.5);
 }
 * {
 	margin: 0;
@@ -13,7 +14,7 @@
 	box-sizing: border-box;
 }
 body {
-	background-color: #3a3729;
+	background-color: #efefef;
 	color: #d6ed17ff;
 	display: flex;
 	min-height: 100vh;
@@ -25,20 +26,23 @@ body {
 
 .container {
 	width: 35%;
-	padding: 8px;
+	padding: 12px;
 	border-radius: 1rem;
 }
 .display {
 	display: block;
 	text-align: right;
-	font-size: 50px;
-	padding: 5px 0;
+	font-size: 2em;
+	border: solid 1px;
+	border-radius: 5px;
+	padding: 20px 3px;
 	/* fix content exceeding display  */
 	word-wrap: break-word;
 	word-break: break-all;
 }
 .btnPanel {
 	display: grid;
+	padding-top: 20px;
 	grid-template-columns: 1fr;
 }
 .numbers {
@@ -49,7 +53,7 @@ body {
 .numbers button {
 	border-radius: 5px;
 	padding: 16px;
-	font-size: 2rem;
+	font-size: 1.5em;
 }
 
 .dark-background {
@@ -61,11 +65,37 @@ body {
 	background-color: var(--operator-background);
 	color: #ffffff;
 }
+
+.operator-background:hover {
+	background-color: var(--number-background);
+	color: #ffffff;
+}
+.operator-background:active {
+	background-color: #ffffff;
+	color: #060708;
+}
 .equal-background {
 	background-color: var(--equal-background);
+	color: #060708;
+}
+
+.equal-background:hover {
+	background-color: #da755e;
+	color: #060708;
+}
+.equal-background:active {
+	background-color: #ffffff;
 	color: #060708;
 }
 .number-background {
 	background-color: var(--number-background);
 	color: #ffffff;
+}
+.number-background:hover {
+	background-color: var(--operator-background);
+	color: #ffffff;
+}
+.number-background:active {
+	background-color: #ffffff;
+	color: #060708;
 }
