@@ -13,7 +13,7 @@
 	box-sizing: border-box;
 }
 body {
-	background-color: #f8efbb;
+	background-color: #3a3729;
 	color: #d6ed17ff;
 	display: flex;
 	min-height: 100vh;
@@ -24,16 +24,18 @@ body {
 }
 
 .container {
-	width: 300px;
+	width: 35%;
 	padding: 8px;
 	border-radius: 1rem;
 }
 .display {
-	display: flex;
+	display: block;
+	text-align: right;
 	font-size: 50px;
 	padding: 5px 0;
-	align-items: center;
-	justify-content: flex-end;
+
+	word-wrap: break-word;
+	word-break: break-all;
 }
 .btnPanel {
 	display: grid;
@@ -45,7 +47,8 @@ body {
 	gap: 2px;
 }
 .numbers button {
-	border-radius: 10px;
+	border-radius: 5px;
+	padding: 16px;
 	font-size: 2rem;
 }
 
