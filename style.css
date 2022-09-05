@@ -25,12 +25,13 @@ body {
 }
 
 .container {
-	width: 35%;
+	width: 350px;
 	padding: 12px;
+	display: flex;
+	flex-direction: column;
 	border-radius: 1rem;
 }
 .display {
-	display: block;
 	text-align: right;
 	font-size: 2em;
 	border: solid 1px;
@@ -41,7 +42,6 @@ body {
 	word-break: break-all;
 }
 .btnPanel {
-	display: grid;
 	padding-top: 20px;
 	grid-template-columns: 1fr;
 }
