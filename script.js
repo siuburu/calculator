@@ -25,7 +25,8 @@ function modulus(a, b) {
 	return a % b;
 }
 function operate(operator, a, b) {
-	return operator(a, b);
+	if (operator == null) return;
+	else return operator(a, b);
 }
 
 function fraction(a) {
@@ -37,6 +38,26 @@ function roundNumber(number) {
 	return +parseFloat(number).toFixed(4);
 }
 
+function checkOperator(operator) {
+	switch (operator) {
+		case "+":
+			return add;
+			break;
+		case "-":
+			return subtract;
+			break;
+		case "/": //for the keyboard
+			return divide;
+			break;
+		case "÷": //for the button
+			return divide;
+		case "*":
+			return multiply;
+			break;
+		default:
+			return null;
+	}
+}
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const display = document.querySelector(".display");
@@ -51,6 +72,7 @@ let storedValue = 0;
 let operator = null;
 //input numbers to display
 function updateDisplay(number) {
+	if (number === undefined) number = 0;
 	if (number.toString().length > 9 && number.toString().includes(".")) {
 		number = roundNumber(number);
 	}
@@ -79,7 +101,7 @@ operatorButtons.forEach((button) => {
 	button.addEventListener("click", () => {
 		if (operator !== null)
 			updateDisplay(operate(this[operator], storedValue, display.textContent));
-		operator = button.className.split(" ")[1];
+		operator = checkOperator(button.textContent);
 		storedValue = display.textContent;
 		//display.textContent = "0";
 	});
@@ -92,7 +114,7 @@ fractionButton.onclick = () => {
 };
 //function to operate stored values and put result to display
 equalButton.onclick = () => {
-	updateDisplay(operate(this[operator], storedValue, display.textContent));
+	updateDisplay(operate(operator, storedValue, display.textContent));
 };
 
 clearEntryButton.onclick = () => {
@@ -108,3 +130,29 @@ backspaceButton.onclick = () => {
 	updateDisplay(display.textContent.slice(0, display.textContent.length - 1));
 	if (display.textContent === "") updateDisplay(0);
 };
+
+document.addEventListener("keydown", (event) => {
+	const operatorArray = ["+", "*", "/", "-"];
+
+	if (isFinite(event.key) || event.key === ".") {
+		if (display.textContent.includes(".") && event.key === ".") {
+			return;
+		} else if (
+			display.textContent === "0" ||
+			display.textContent === storedValue
+		) {
+			updateDisplay("");
+		}
+		updateDisplay(display.textContent + event.key);
+	} else if (operatorArray.includes(event.key)) {
+		storedValue = display.textContent;
+		if (operator !== null)
+			updateDisplay(operate(this[operator], storedValue, display.textContent));
+		operator = checkOperator(event.key);
+	} else if (event.key === "=")
+		updateDisplay(operate(operator, storedValue, display.textContent));
+	else if (event.key === "Backspace") {
+		updateDisplay(display.textContent.slice(0, display.textContent.length - 1));
+		if (display.textContent === "") updateDisplay(0);
+	}
+});
